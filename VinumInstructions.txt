@@ -1,0 +1,39 @@
+* VINUM Project Planning
+
+* So we will need different things to make this work, as I established and please if you have any suggestions/ideas feel free to express them. Anything that we can do to make this have the best outcome as possible is appreciated
+
+* Ok, so the first things that we for sure know that we need are:
+
+* Front-end (React Native):
+- For the front-end of the app we will be using React Native. We could either choose if we want to use Xcode for macOS people
+- If you have Windows we will find an IDE propper for the app development, which could simple just be VS Code
+- Another alternative for windows could be this website "https://expo.dev/pricing"
+- We will be designing the UI within the next 2 days, I will be posting it in the chat. Please contribute to the UI Design if you have any suggestions
+- Links for UI Ideas: "https://apps.apple.com/us/app/vivino-buy-the-right-wine/id414461255" "https://www.hellovino.com/" "https://apps.apple.com/us/app/hello-vino-wine-assistant/id318447346?ign-mpt=uo%3D4&ref=hellovinowebsite"
+
+* Back-end Server (Python with Django):
+- The back-end server will be used to handle all the application logic, including user auhtentication, data processing, and interfacing with the database
+- We are using Django since it is a comprehensive Framework which includes ORM for database operations, offers app development tools which make it faster for the app development
+- You will need to install Python and Django. Set up your project with "django-admin startproject". Define your data models and use Django's automatic admin interface to manage data easily
+- If you would like to use another back-end language such as Java or C++ go ahead, whatever u feel comfortable with
+
+* Database (MySQL):
+- Purpose: To store and manage data such as user profiles, preferences, and transaction records securely and efficiently.
+- We using MySQL since it's a database management system used for many companies with strong cosistency and reliable asf
+- Install MySQL. Integrate it with Django using Django settings. Utilize Django’s ORM to create and manage your database schema and operations without needing to write SQL code manually.
+
+*API Development (Python & Django):
+- Pretty sure we all know what an API is but just to make sure, they facilitate communication between the frontend (app UI) and the back-end (Servers and Database)
+- We are using Django because of its popularity because of its abilities to create web/apps API's, making it simple to create RESTful interfaces. Provides tools for serialization, authentication, and custom endpoint creation
+- We could also use Node.Js which could be benefitial to handle many requests at once. But we need whatever saves memory too so we dont shit on the user's RAM
+- Instructions: Define your API endpoints using DRF's viewsets and serializers. Test API endpoints using tools like Postman or Swagger.
+
+* Hosting and Services (AWS or Apache):
+- We will need this eventually to host the back-end server, the MySQL databse, and static files like images and documents
+- We are using it because it offers a set of cloud computing services. Amazon EC2 provides scalable virtual servers, RDS offers managed database services, and S3 is ideal for storing static and uploaded files
+- Instructions: Set up an AWS account. Configure EC2 instances for your server. Use RDS for your MySQL databases. Store static assets in S3 buckets. Utilize AWS IAM for managing access securely.
+
+* Extra:
+- I know I am being fucking annoying, but if you have any suggestions for the project please type em in the chat
+- If you know/think that we could implement another language for the stuff we need to do then let everyone know how and why
+- Lets fucking enjoy the process, lets not forget we all started in this cause we love what we do, if we need to sesh or have beers to come up with better ideas and work on the project we will do so. Let's do as best as we can

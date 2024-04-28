@@ -1,6 +1,11 @@
 * Used as self notes to get a better understanding of React native and so I can learn mor e
 * You all are welcome to also add notes of the functioning of the app in here, so we all understand
 
+-To Run/Set up the project:
+*Make sure you have npm installed and all the libraries react needs
+*To initiate the project, run this command in the project terminal: npx react-native start
+*Then you will be prompted some options and just follow them
+
 -How each section of the code works:
 
 *First section of the code is importing all the necessary components and utilities for the file
