@@ -1,0 +1,9 @@
+* Used as self notes to get a better understanding of React native and so I can learn mor e
+* You all are welcome to also add notes of the functioning of the app in here, so we all understand
+
+-How each section of the code works:
+
+*First section of the code is importing all the necessary components and utilities for the file
+*Second section is the JSX syntax used for rendering components in the file, visual part of the app
+*Third section is JS, the logic components of how stuff behaves and responds
+*Fourth section is the CSS which is where we define how each thing in the app looks
