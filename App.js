@@ -1,20 +1,25 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+// En App.js o en tu archivo de navegación principal
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ForYouScreen from './pages/ForYou';
+import ProfileScreen from './pages/Profile';
+import SearchScreen from './pages/Search';
+import CollectionsScreen from './pages/Collections';
 
-const HelloWorldApp = () => {
+const Tab = createBottomTabNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hello, World!</Text>
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="For You" component={ForYouScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Collections" component={CollectionsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-export default HelloWorldApp;
+export default App;
