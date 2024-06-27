@@ -1,7 +1,7 @@
 // En App.js o en tu archivo de navegación principal
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ForYouScreen from './pages/ForYou';
 import ProfileScreen from './pages/Profile';
 import SearchScreen from './pages/Search';
