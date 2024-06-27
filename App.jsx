@@ -1,11 +1,14 @@
 // En App.js o en tu archivo de navegación principal
 import * as React from 'react';
+import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ForYouScreen from './pages/ForYou';
 import ProfileScreen from './pages/Profile';
 import SearchScreen from './pages/Search';
 import CollectionsScreen from './pages/Collections';
+
+enableScreens();
 
 const Tab = createBottomTabNavigator();
 
