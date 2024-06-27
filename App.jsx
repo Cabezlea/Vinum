@@ -14,9 +14,9 @@ function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="For You" component={ForYouScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Collections" component={CollectionsScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
