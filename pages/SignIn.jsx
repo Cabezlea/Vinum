@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 
 const {height} = Dimensions.get('window');
 const SignInScreen = ({ onSignIn }) => {
@@ -10,11 +10,22 @@ const SignInScreen = ({ onSignIn }) => {
       <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#FFFFFF"/>
       <TextInput style={styles.input} placeholder="Password" placeholderTextColor="#FFFFFF"/>
       {/* Buttons for the user to Sign in */}
-      <Button title="Sign In" onPress={onSignIn} color="#FFFFFF" />
+      <TouchableOpacity style={styles.button} onPress={onSignIn}>
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
       <Text style={styles.orText}>or</Text>
-      <Button title="Log in with Facebook" onPress={() => {}} color="#FFFFFF" />
-      <Button title="Log in with Google" onPress={() => {}} color="#FFFFFF" />
-      <Button title="Sign Up" onPress={() => {}} color="#FFFFFF" />
+
+      <TouchableOpacity style={styles.buttonFacebook} onPress={() => {}}>
+        <Text style={styles.buttonText}>Log in with Facebook</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.buttonGoogle} onPress={() => {}}>
+        <Text style={styles.buttonText}>Log in with Google</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.signUpButton} onPress={() => {}}>
+        <Text style={styles.signUpText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -25,12 +36,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#0D1B2A',
-    paddingTop: height * 0.13, // 13% of the screen to make sure it is responsive
+    paddingTop: height * 0.1,
+
   },
   welcomeText: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20, // Add some space before the button
+    marginBottom: 40,
     color: '#FFFFFF',
   },
   input: {
@@ -40,19 +52,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff40',
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 25,
+  },
+  button: {
+    width: '90%',
+    backgroundColor: '#4666F2', // Example color
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginBottom: 25,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
   orText: {
     color: '#FFFFFF',
-    marginVertical: 10,
+    marginBottom: 20,
+  },
+  buttonFacebook: {
+    backgroundColor: '#3B5998', // Facebook blue
+    width: '90%',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginBottom: 25,
+  },
+  buttonGoogle: {
+    backgroundColor: '#DB4437', // Google red
+    width: '90%',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  signUpButton: {
+    marginTop: 15,
   },
   signUpText: {
-    marginTop: 20,
-    color: '#FFF',
-  },
-  signUpLink: {
-    fontWeight: 'bold',
-    color: '#5C4D7D',
+    color: '#FFFFFF',
+    fontSize: 16,
   }
 });
 
