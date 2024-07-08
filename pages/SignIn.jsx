@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome or any other icon set
+import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity, Image } from 'react-native';
 
 const { height } = Dimensions.get('window');
 
@@ -9,7 +8,7 @@ const SignInScreen = ({ onSignIn }) => {
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome To Vinum</Text>
       <View style={styles.inputContainer}>
-        <Icon name="user" size={24} color="#FFFFFF" />
+        <Image source={require('../images/user.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -18,7 +17,7 @@ const SignInScreen = ({ onSignIn }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Icon name="lock" size={24} color="#FFFFFF" />
+        <Image source={require('../images/password.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -71,6 +70,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     height: 40,
+  },
+  icon: {
+    width: 24,  // Set width of the icon
+    height: 24, // Set height of the icon
+    marginRight: 10, // Adds spacing between the icon and the input field
   },
   button: {
     width: '90%',
