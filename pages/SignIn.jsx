@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity, Image } from 'react-native';
+import facebookIcon from '../images/facebook.png';
+import googleIcon from '../images/google.png';
 
 const { height } = Dimensions.get('window');
 
@@ -30,10 +32,12 @@ const SignInScreen = ({ onSignIn }) => {
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonFacebook} onPress={() => {}}>
-        <Text style={styles.buttonText}>Log in with Facebook</Text>
+        <Image source={facebookIcon} style={styles.socialIcon} />
+        <Text style={[styles.buttonText, styles.buttonTextWithIcon]}>Log in with Facebook</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonGoogle} onPress={() => {}}>
-        <Text style={styles.buttonText}>Log in with Google</Text>
+        <Image source={googleIcon} style={styles.socialIcon} />
+        <Text style={[styles.buttonText, styles.buttonTextWithIcon]}>Log in with Google</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.signUpButton} onPress={() => {}}>
         <Text style={styles.signUpText}>Sign Up</Text>
@@ -91,22 +95,32 @@ const styles = StyleSheet.create({
   orText: {
     color: '#FFFFFF',
     marginBottom: 10,
+    flex: 1, // Ensure text takes the remaining space
+    textAlign: 'center', // Center text
   },
   buttonFacebook: {
-    backgroundColor: '#3B5998',
-    width: '80%', // Reduced from 90% to 80%
-    padding: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3B5998',
+    width: '80%',
+    padding: 10,
     borderRadius: 5,
     marginBottom: 15,
   },
   buttonGoogle: {
-    backgroundColor: '#DB4437',
-    width: '80%', // Reduced from 90% to 80%
-    padding: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#DB4437',
+    width: '80%',
+    padding: 10,
     borderRadius: 5,
     marginBottom: 1,
+  },
+  buttonTextWithIcon: {
+    marginLeft: 10, // Space between icon and text
+    textAlign:"center",
   },
   signUpButton: {
     width: '80%', // Reduced from 90% to 80%
@@ -119,6 +133,13 @@ const styles = StyleSheet.create({
   signUpText: {
     color: '#FFFFFF',
     fontSize: 16,
+  },
+  socialIcon: {
+    width: 20,
+    height: 20,
+    position: 'absolute', // Keeps the icon positioned absolutely within the button
+    left: 10, // Adjust this value based on your preference
+    marginRight: 10, // Space between icon and text
   },
 });
 
