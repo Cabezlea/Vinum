@@ -29,7 +29,6 @@ const SignInScreen = ({ onSignIn }) => {
       <TouchableOpacity style={styles.button} onPress={onSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
-      <Text style={styles.orText}>or</Text>
       <TouchableOpacity style={styles.buttonFacebook} onPress={() => {}}>
         <Text style={styles.buttonText}>Log in with Facebook</Text>
       </TouchableOpacity>
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   icon: {
-    width: 24,  // Set width of the icon
+    width: 24, // Set width of the icon
     height: 24, // Set height of the icon
     marginRight: 10, // Adds spacing between the icon and the input field
   },
@@ -82,7 +81,8 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
-    marginBottom: 25,
+    marginTop: 20,
+    marginBottom: 50,
   },
   buttonText: {
     color: '#FFFFFF',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   orText: {
     color: '#FFFFFF',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   buttonFacebook: {
     backgroundColor: '#3B5998',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
-    marginBottom: 25,
+    marginBottom: 15,
   },
   buttonGoogle: {
     backgroundColor: '#DB4437',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
-    marginBottom: 15,
+    marginBottom: 1,
   },
   signUpButton: {
     width: '90%',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
-    marginTop: 15,
+    marginTop: 50,
   },
   signUpText: {
     color: '#FFFFFF',
