@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
     marginBottom: 25,
-    width: '90%',
+    width: '80%', // Reduced from 90% to 80%
   },
   input: {
     color: '#FFFFFF',
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
     height: 40,
   },
   icon: {
-    width: 24, // Set width of the icon
-    height: 24, // Set height of the icon
-    marginRight: 10, // Adds spacing between the icon and the input field
+    width: 24,
+    height: 24,
+    marginRight: 10,
   },
   button: {
-    width: '90%',
+    width: '80%', // Reduced from 90% to 80%
     backgroundColor: '#4666F2',
     padding: 10,
     alignItems: 'center',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   buttonFacebook: {
     backgroundColor: '#3B5998',
-    width: '90%',
+    width: '80%', // Reduced from 90% to 80%
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
@@ -102,15 +102,15 @@ const styles = StyleSheet.create({
   },
   buttonGoogle: {
     backgroundColor: '#DB4437',
-    width: '90%',
+    width: '80%', // Reduced from 90% to 80%
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
     marginBottom: 1,
   },
   signUpButton: {
-    width: '90%',
-    backgroundColor: '#4666F2', // Change this if you want a different color for the sign-up button
+    width: '80%', // Reduced from 90% to 80%
+    backgroundColor: '#4666F2',
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
