@@ -3,7 +3,7 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import SignInScreen from './pages/SignIn';
 import ForYouScreen from './pages/ForYou';
 import ProfileScreen from './pages/Profile';
@@ -58,6 +58,7 @@ function MainTabs() {
           fontSize: 13, // Change this value to make the font larger
           fontWeight: 'bold', // Make the font bold
         },
+        headerShown: false, // Hide the header in the Tab.Navigator
       })}
     >
       <Tab.Screen name="For You" component={ForYouScreen} />
@@ -74,7 +75,21 @@ function App() {
   return (
     <NavigationContainer>
       {isSignedIn ? (
-        <MainTabs />
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: true,
+            headerRight: () => (
+              <TouchableOpacity style={{ marginRight: 10 }}>
+                <Image
+                  source={require('./images/cart.png')}
+                  style={styles.cartIcon}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        >
+          <Stack.Screen name="MainTabs" component={MainTabs} />
+        </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="SignIn">
@@ -99,5 +114,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
+  },
+  cartIcon: {
+    width: 25,
+    height: 25,
   },
 });

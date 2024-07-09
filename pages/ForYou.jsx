@@ -43,11 +43,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 15,
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
   wineContainer: {
     flexDirection: 'row',
     marginBottom: 20,
