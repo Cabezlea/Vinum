@@ -3,14 +3,13 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, StyleSheet } from 'react-native';
 import SignInScreen from './pages/SignIn';
 import ForYouScreen from './pages/ForYou';
 import ProfileScreen from './pages/Profile';
 import SearchScreen from './pages/Search';
 import CollectionsScreen from './pages/Collections';
 import { useState } from 'react';
-import { Image } from 'react-native';
-
 
 enableScreens();
 
@@ -20,9 +19,38 @@ const Tab = createBottomTabNavigator();
 function MainTabs() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          let iconName;
+
+          switch (route.name) {
+            case 'For You':
+              iconName = require('./images/foryou.png');
+              break;
+            case 'Search':
+              iconName = require('./images/search.png');
+              break;
+            case 'Collections':
+              iconName = require('./images/wine.png');
+              break;
+            case 'Profile':
+              iconName = require('./images/profile.png');
+              break;
+          }
+
+          return (
+            <Image
+              source={iconName}
+              style={[
+                styles.icon,
+                { opacity: focused ? 1 : 0.5 },
+                focused && styles.focusedIcon,
+              ]}
+            />
+          );
+        },
         tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: 'black',
+        tabBarInactiveTintColor: '#323331',
         tabBarStyle: {
           backgroundColor: '#f20d5d',
         },
@@ -30,72 +58,12 @@ function MainTabs() {
           fontSize: 13, // Change this value to make the font larger
           fontWeight: 'bold', // Make the font bold
         },
-      }}
+      })}
     >
-      <Tab.Screen
-        name="For You"
-        component={ForYouScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={
-                focused
-                  ? require('./images/foryou.png')
-                  : require('./images/foryou.png')
-              }
-              style={{ width: 20, height: 20 }}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={
-                focused
-                  ? require('./images/search.png')
-                  : require('./images/search.png')
-              }
-              style={{ width: 20, height: 20 }}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Collections"
-        component={CollectionsScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={
-                focused
-                  ? require('./images/wine.png')
-                  : require('./images/wine.png')
-              }
-              style={{ width: 20, height: 20 }}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={
-                focused
-                  ? require('./images/profile.png')
-                  : require('./images/profile.png')
-              }
-              style={{ width: 20, height: 20 }}
-            />
-          ),
-        }}
-      />
+      <Tab.Screen name="For You" component={ForYouScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Collections" component={CollectionsScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -119,3 +87,17 @@ function App() {
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 20,
+    height: 20,
+  },
+  focusedIcon: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+});
