@@ -49,10 +49,10 @@ function MainTabs() {
             />
           );
         },
-        tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: '#323331',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: '#c7c2c2d9',
         tabBarStyle: {
-          backgroundColor: '#f20d5d',
+          backgroundColor: '#8C001A',
         },
         tabBarLabelStyle: {
           fontSize: 13, // Change this value to make the font larger
