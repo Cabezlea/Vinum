@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Image } from "react-native";
 
 const SignUp = ({ navigation }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -32,6 +32,7 @@ const SignUp = ({ navigation }) => {
       <Animated.View style={[styles.background, { backgroundColor: backgroundInterpolate }]} />
       <Text style={styles.welcomeText}>Sign Up With Email</Text>
       <View style={styles.inputContainer}>
+        <Image source={require('../images/user.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -40,6 +41,7 @@ const SignUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
+        <Image source={require('../images/user.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -49,6 +51,7 @@ const SignUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
+        <Image source={require('../images/password.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -58,6 +61,7 @@ const SignUp = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
+        <Image source={require('../images/password.png')} style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Confirm Password"
@@ -85,6 +89,12 @@ const styles = StyleSheet.create({
   },
   background: {
     ...StyleSheet.absoluteFillObject,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+    tintColor: '#F7E1D7',
   },
   welcomeText: {
     fontSize: 24,
