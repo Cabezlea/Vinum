@@ -5,7 +5,7 @@ import googleIcon from '../images/google.png';
 
 const { height } = Dimensions.get('window');
 
-const SignInScreen = ({ onSignIn }) => {
+const SignInScreen = ({ onSignIn, navigation }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const SignInScreen = ({ onSignIn }) => {
           <Image source={googleIcon} style={styles.socialIcon} />
           <Text style={[styles.buttonText, styles.buttonTextWithIcon]}>Log in with Google</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signUpButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signUpText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
