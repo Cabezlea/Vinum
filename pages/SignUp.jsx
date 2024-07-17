@@ -132,6 +132,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  linkText: {
+    color: '#F7E1D7',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 40,
+  },
 });
 
 export default SignUp;

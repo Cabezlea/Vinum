@@ -11,6 +11,7 @@ import SearchScreen from './pages/Search';
 import CollectionsScreen from './pages/Collections';
 import SignUp from './pages/SignUp';
 import Welcome from './pages/Welcome';
+import Questions from './pages/Questions';
 import { useState } from 'react';
 
 enableScreens();
@@ -99,6 +100,7 @@ function App() {
           </Stack.Screen>
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Questions" component={Questions}/>
         </Stack.Navigator>
       )}
     </NavigationContainer>

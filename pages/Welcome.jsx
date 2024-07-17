@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     width: 120, // Adjust based on your logo's aspect ratio
     height: 120,
     marginBottom: 20,
+    borderRadius: 20,
   },
   welcomeText: {
     fontSize: 24,
