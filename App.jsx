@@ -10,6 +10,7 @@ import ProfileScreen from './pages/Profile';
 import SearchScreen from './pages/Search';
 import CollectionsScreen from './pages/Collections';
 import SignUp from './pages/SignUp';
+import Welcome from './pages/Welcome';
 import { useState } from 'react';
 
 enableScreens();
@@ -97,6 +98,7 @@ function App() {
             {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
           </Stack.Screen>
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Welcome" component={Welcome} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

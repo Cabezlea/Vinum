@@ -52,7 +52,7 @@ const SignInScreen = ({ onSignIn, navigation }) => {
             secureTextEntry
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={onSignIn}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonFacebook} onPress={() => {}}>
