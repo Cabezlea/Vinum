@@ -72,7 +72,7 @@ const SignUp = ({ navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Home')} // Adjust navigation as needed
+        onPress={() => navigation.navigate('ForYou')} // Adjust navigation as needed
       >
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
