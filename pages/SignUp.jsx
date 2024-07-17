@@ -76,6 +76,9 @@ const SignUp = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+        <Text style={styles.linkText}>Already have an account? Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
