@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 const Questions = () => {
   const [wineType, setWineType] = useState(null);
   const [sweetness, setSweetness] = useState(null);
   const [accompaniment, setAccompaniment] = useState(null);
-  const [priceRange, setPriceRange] = useState([0, 50]);  // Corrected to 0-50
-
-  // States to manage animations
-  const [fadeAnim] = useState(new Animated.Value(0));
-
-  // Function to handle smooth appearance of options
-  const fadeInNextSection = () => {
-    fadeAnim.setValue(0);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  };
+  const [priceRange, setPriceRange] = useState([0, 50]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.headerText}>Customize your wine preferences</Text>
 
       <View style={styles.section}>
@@ -32,11 +19,7 @@ const Questions = () => {
             <TouchableOpacity
               key={type}
               style={[styles.button, wineType === type && styles.buttonSelected]}
-              onPress={() => {
-                setWineType(type);
-                fadeInNextSection();
-                if (!sweetness) setSweetness(null);
-              }}
+              onPress={() => setWineType(type)}
             >
               <Text style={styles.buttonText}>{type}</Text>
             </TouchableOpacity>
@@ -45,53 +28,45 @@ const Questions = () => {
       </View>
 
       {wineType && (
-        <Animated.View style={[styles.section, {opacity: fadeAnim}]}>
+        <View style={styles.section}>
           <Text style={styles.questionText}>What's your preferred sweetness level?</Text>
           <View style={styles.buttonContainer}>
             {['Dry', 'Medium Dry', 'Medium Sweet', 'Sweet'].map(level => (
               <TouchableOpacity
                 key={level}
                 style={[styles.button, sweetness === level && styles.buttonSelected]}
-                onPress={() => {
-                  setSweetness(level);
-                  fadeInNextSection();
-                  if (!accompaniment) setAccompaniment(null);
-                }}
+                onPress={() => setSweetness(level)}
               >
                 <Text style={styles.buttonText}>{level}</Text>
               </TouchableOpacity>
             ))}
           </View>
-        </Animated.View>
+        </View>
       )}
 
       {sweetness && (
-        <Animated.View style={[styles.section, {opacity: fadeAnim}]}>
+        <View style={styles.section}>
           <Text style={styles.questionText}>How do you like to accompany your wine?</Text>
           <View style={styles.buttonContainer}>
             {['Steak', 'Pork', 'Fish', 'Poultry'].map(food => (
               <TouchableOpacity
                 key={food}
                 style={[styles.button, accompaniment === food && styles.buttonSelected]}
-                onPress={() => {
-                  setAccompaniment(food);
-                  fadeInNextSection();
-                  if (!priceRange) setPriceRange([0, 50]);
-                }}
+                onPress={() => setAccompaniment(food)}
               >
                 <Text style={styles.buttonText}>{food}</Text>
               </TouchableOpacity>
             ))}
           </View>
-        </Animated.View>
+        </View>
       )}
 
       {accompaniment && (
-        <Animated.View style={[styles.section, {opacity: fadeAnim}]}>
+        <View style={styles.section}>
           <Text style={styles.questionText}>What is your price range?</Text>
           <MultiSlider
             values={priceRange}
-            sliderLength={280} // Ensure the slider fits within the screen width
+            sliderLength={280}
             onValuesChange={setPriceRange}
             min={0}
             max={50}
@@ -99,48 +74,50 @@ const Questions = () => {
             allowOverlap={false}
             snapped
             minMarkerOverlapDistance={10}
+            containerStyle={{ alignSelf: 'center' }}
           />
           <Text style={styles.rangeText}>From ${priceRange[0]} To ${priceRange[1]}</Text>
           <TouchableOpacity style={styles.continueButton}>
             <Text style={styles.continueButtonText}>Continue</Text>
           </TouchableOpacity>
-        </Animated.View>
+        </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 60, // Increased padding at the top
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingTop: 50,
+    paddingBottom: 30,
     backgroundColor: '#0D1B2A',
   },
   headerText: {
-    fontSize: 24, // Slightly larger for emphasis
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 30, // Increased bottom margin for spacing
+    marginBottom: 30,
     textAlign: 'center',
   },
   questionText: {
     color: '#FFFFFF',
     fontSize: 18,
-    marginBottom: 15, // Increased spacing
+    marginBottom: 15,
     textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly', // Improved spacing between buttons
-    marginBottom: 30,
+    justifyContent: 'space-evenly',
+    marginBottom: 20,
   },
   button: {
     backgroundColor: '#073152',
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 20,
-    minWidth: 100, // Ensured minimum width for aesthetic consistency
+    minWidth: 60, // Adjusted size for aesthetics
   },
   buttonSelected: {
     backgroundColor: '#D52247',
@@ -152,22 +129,21 @@ const styles = StyleSheet.create({
   },
   slider: {
     alignSelf: 'center',
-    width: '90%', // Reduced width to ensure it doesn't exceed screen bounds
+    width: '100%',
   },
   rangeText: {
     color: '#FFFFFF',
     fontSize: 16,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   section: {
     marginBottom: 20,
   },
   continueButton: {
     backgroundColor: '#D52247',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30,
+    padding: 15,
+    borderRadius: 25,
     alignItems: 'center',
     marginTop: 30,
   },
