@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0D1B2A',
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 30,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   questionText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 19,
     marginBottom: 15,
     textAlign: 'center',
   },
