@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Slider from '@react-native-community/slider';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 const Questions = () => {
   const [wineType, setWineType] = useState(null);
   const [sweetness, setSweetness] = useState(null);
   const [accompaniment, setAccompaniment] = useState(null);
-  const [priceRange, setPriceRange] = useState([20, 50]); // Initialize with min and max range
-
-  const [showSweetness, setShowSweetness] = useState(false);
-  const [showAccompaniment, setShowAccompaniment] = useState(false);
-  const [showPriceRange, setShowPriceRange] = useState(false);
-
-  useEffect(() => {
-    if (wineType) setShowSweetness(true);
-  }, [wineType]);
-
-  useEffect(() => {
-    if (sweetness) setShowAccompaniment(true);
-  }, [sweetness]);
-
-  useEffect(() => {
-    if (accompaniment) setShowPriceRange(true);
-  }, [accompaniment]);
+  const [priceRange, setPriceRange] = useState([0, 50]); // Range starts from 0
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.headerText}>Customize your wine preferences</Text>
 
+      {/* Wine Type Selection */}
       <View style={styles.section}>
         <Text style={styles.questionText}>What type of wine do you like?</Text>
         <View style={styles.buttonContainer}>
@@ -43,7 +28,8 @@ const Questions = () => {
         </View>
       </View>
 
-      {showSweetness && (
+      {/* Sweetness Level Selection */}
+      {wineType && (
         <View style={styles.section}>
           <Text style={styles.questionText}>What's your preferred sweetness level?</Text>
           <View style={styles.buttonContainer}>
@@ -60,7 +46,8 @@ const Questions = () => {
         </View>
       )}
 
-      {showAccompaniment && (
+      {/* Accompaniment Selection */}
+      {sweetness && (
         <View style={styles.section}>
           <Text style={styles.questionText}>How do you like to accompany your wine?</Text>
           <View style={styles.buttonContainer}>
@@ -77,24 +64,33 @@ const Questions = () => {
         </View>
       )}
 
-      {showPriceRange && (
+      {/* Price Range Selection */}
+      {accompaniment && (
         <View style={styles.section}>
           <Text style={styles.questionText}>What is your price range?</Text>
-          <Slider
-            style={styles.slider}
-            minimumValue={20}
-            maximumValue={50}
-            minimumTrackTintColor="#D52247"
-            maximumTrackTintColor="#FFFFFF"
-            step={1}
+          <MultiSlider
             values={priceRange}
-            onValueChange={(values) => setPriceRange(values)}
+            sliderLength={280} // Adjust width to full width if needed
+            onValuesChange={(values) => setPriceRange(values)}
+            min={0}
+            max={50}
+            step={1}
+            allowOverlap={false}
+            snapped
+            minMarkerOverlapDistance={30}
           />
           <Text style={styles.rangeText}>From ${priceRange[0]} To ${priceRange[1]}</Text>
         </View>
       )}
 
-    </ScrollView>
+      {/* Continue Button */}
+      {priceRange && (
+        <TouchableOpacity style={styles.continueButton}>
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </TouchableOpacity>
+      )}
+
+    </View>
   );
 };
 
@@ -102,6 +98,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 85, // Increased top padding
     backgroundColor: '#0D1B2A',
   },
   headerText: {
@@ -135,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   slider: {
-    width: '100%',
+    width: '100%', // Ensure the slider is full width
     height: 40,
   },
   rangeText: {
@@ -146,6 +143,18 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 30,
+  },
+  continueButton: {
+    backgroundColor: '#D52247',
+    padding: 15,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  continueButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
