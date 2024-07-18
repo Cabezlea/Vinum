@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
+const { width, height } = Dimensions.get('window');  // Get the width and height of the screen
 const Questions = () => {
   const [wineType, setWineType] = useState(null);
   const [sweetness, setSweetness] = useState(null);
@@ -144,13 +145,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#D52247',
     padding: 15,
     borderRadius: 25,
-    alignItems: 'center',
+    width: width * 0.8,
+    alignSelf: 'center',
     marginTop: 30,
   },
   continueButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
