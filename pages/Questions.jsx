@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import { useNavigation, CommonActions } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';  // Importa CommonActions
 
 const { width } = Dimensions.get('window');
 
@@ -21,7 +21,9 @@ const Questions = () => {
           {
             name: 'MainDrawer',
             state: {
-              routes: [{ name: 'ForYou' }],
+              routes: [
+                { name: 'ForYou' },
+              ],
             },
           },
         ],
