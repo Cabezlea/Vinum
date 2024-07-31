@@ -1,35 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Image } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 
 const SignUp = ({ navigation }) => {
-  const animatedValue = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    const startAnimation = () => {
-      Animated.loop(
-        Animated.timing(animatedValue, {
-          toValue: 1,
-          duration: 8000,
-          useNativeDriver: false, // Ensure this is false as we are animating colors
-        }),
-        { iterations: -1 }
-      ).start();
-    };
-
-    startAnimation();
-
-    // Cleanup to stop animation when component unmounts
-    return () => animatedValue.stopAnimation();
-  }, []);
-
-  const backgroundInterpolate = animatedValue.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: ['#8C001A', '#46000D', '#8C001A'],
-  });
-
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.background, { backgroundColor: backgroundInterpolate }]} />
+      <View style={styles.background} />
       <Text style={styles.welcomeText}>Sign Up With Email</Text>
       <View style={styles.inputContainer}>
         <Image source={require('../images/user.png')} style={styles.icon} />
@@ -88,10 +63,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0D1B2A', // Ensuring consistency with the SignIn screen
+    backgroundColor: '#0D1B2A', // Dark blue background color
   },
   background: {
     ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#0D1B2A', // Static background color
   },
   icon: {
     width: 24,

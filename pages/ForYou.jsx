@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
-const ForYouPage = () => {
+const ForYou = () => {
   // Ejemplo de datos simulados de vinos
   const wines = [
     {
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForYouPage;
+export default ForYou;

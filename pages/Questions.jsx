@@ -1,13 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window');  // Get the width and height of the screen
+const { width } = Dimensions.get('window');
+
 const Questions = () => {
+  const navigation = useNavigation();
+
   const [wineType, setWineType] = useState(null);
   const [sweetness, setSweetness] = useState(null);
   const [accompaniment, setAccompaniment] = useState(null);
   const [priceRange, setPriceRange] = useState([0, 50]);
+
+  const handleContinue = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'MainDrawer',
+            state: {
+              routes: [{ name: 'ForYou' }],
+            },
+          },
+        ],
+      })
+    );
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -78,7 +98,10 @@ const Questions = () => {
             containerStyle={{ alignSelf: 'center' }}
           />
           <Text style={styles.rangeText}>From ${priceRange[0]} To ${priceRange[1]}</Text>
-          <TouchableOpacity style={styles.continueButton}>
+          <TouchableOpacity
+            style={styles.continueButton}
+            onPress={handleContinue}
+          >
             <Text style={styles.continueButtonText}>Continue</Text>
           </TouchableOpacity>
         </View>
@@ -118,7 +141,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 20,
-    minWidth: 60, // Adjusted size for aesthetics
+    minWidth: 60,
   },
   buttonSelected: {
     backgroundColor: '#D52247',

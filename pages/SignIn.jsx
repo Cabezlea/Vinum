@@ -1,36 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity, Image, Animated } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import facebookIcon from '../images/facebook.png';
 import googleIcon from '../images/google.png';
 
-const { height } = Dimensions.get('window');
-
-const SignInScreen = ({ onSignIn, navigation }) => {
-  const animatedValue = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    startAnimation();
-  }, []);
-
-  const startAnimation = () => {
-    Animated.loop(
-      Animated.timing(animatedValue, {
-        toValue: 1,
-        duration: 8000,
-        useNativeDriver: false,
-      }),
-      { iterations: -1 }
-    ).start();
-  };
-
-  const backgroundInterpolate = animatedValue.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: ['#8C001A', '#46000D', '#8C001A'],
-  });
-
+const SignInScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.background, { backgroundColor: backgroundInterpolate }]} />
+      <View style={styles.background} />
       <View style={styles.content}>
         <Text style={styles.welcomeText}>Welcome To Vinum</Text>
         <View style={styles.inputContainer}>
@@ -76,9 +52,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0D1B2A', // Dark blue background color
   },
   background: {
     ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#0D1B2A', // Static background color
   },
   content: {
     flex: 1,
