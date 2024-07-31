@@ -55,7 +55,7 @@ function MainTabs() {
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: '#c7c2c2d9',
         tabBarStyle: {
-          backgroundColor: '#8C001A',
+          backgroundColor: '#001C2B',
         },
         tabBarLabelStyle: {
           fontSize: 13, // Change this value to make the font larger
@@ -100,7 +100,9 @@ function App() {
           </Stack.Screen>
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Questions" component={Questions}/>
+          <Stack.Screen name="Questions" component={Questions}>
+                        
+</Stack.Screen>
         </Stack.Navigator>
       )}
     </NavigationContainer>

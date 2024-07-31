@@ -13,24 +13,6 @@ const Questions = () => {
   const [accompaniment, setAccompaniment] = useState(null);
   const [priceRange, setPriceRange] = useState([0, 50]);
 
-  const handleContinue = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'MainDrawer',
-            state: {
-              routes: [
-                { name: 'ForYou' },
-              ],
-            },
-          },
-        ],
-      })
-    );
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.headerText}>Customize your wine preferences</Text>
@@ -102,7 +84,9 @@ const Questions = () => {
           <Text style={styles.rangeText}>From ${priceRange[0]} To ${priceRange[1]}</Text>
           <TouchableOpacity
             style={styles.continueButton}
-            onPress={handleContinue}
+            onPress={() => {
+              onSignIn(); // Trigger sign-in
+            }}
           >
             <Text style={styles.continueButtonText}>Continue</Text>
           </TouchableOpacity>

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'reac
 import facebookIcon from '../images/facebook.png';
 import googleIcon from '../images/google.png';
 
-const SignInScreen = ({ onSignIn }) => {
+const SignInScreen = ({ onSignIn, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.background} />
@@ -44,7 +44,7 @@ const SignInScreen = ({ onSignIn }) => {
           <Image source={googleIcon} style={styles.socialIcon} />
           <Text style={[styles.buttonText, styles.buttonTextWithIcon]}>Log in with Google</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signUpButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signUpText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
