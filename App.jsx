@@ -3,7 +3,7 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import SignInScreen from './pages/SignIn';
 import ForYouScreen from './pages/ForYou';
 import ProfileScreen from './pages/Profile';
@@ -72,6 +72,14 @@ function MainTabs() {
   );
 }
 
+function CustomHeaderTitle() {
+  return (
+    <View style={styles.headerTitleContainer}>
+      <Text style={styles.headerTitle}>Vinum</Text>
+    </View>
+  );
+}
+
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -81,6 +89,7 @@ function App() {
         <Stack.Navigator
           screenOptions={{
             headerShown: true,
+            headerTitle: () => <CustomHeaderTitle />,
             headerRight: () => (
               <TouchableOpacity style={{ marginRight: 10 }}>
                 <Image
@@ -91,7 +100,7 @@ function App() {
             ),
           }}
         >
-          <Stack.Screen name="MainTabs" component={MainTabs} />
+          <Stack.Screen name="Vinum" component={MainTabs} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -100,9 +109,7 @@ function App() {
           </Stack.Screen>
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Questions" component={Questions}>
-                        
-</Stack.Screen>
+          <Stack.Screen name="Questions" component={Questions} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
@@ -126,5 +133,15 @@ const styles = StyleSheet.create({
   cartIcon: {
     width: 25,
     height: 25,
+  },
+  headerTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
