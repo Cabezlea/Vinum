@@ -12,6 +12,7 @@ import CollectionsScreen from './pages/Collections';
 import SignUp from './pages/SignUp';
 import Welcome from './pages/Welcome';
 import Questions from './pages/Questions';
+import WineDetailScreen from './pages/WineDetails'; // Import the WineDetailScreen
 import { useState } from 'react';
 
 enableScreens();
@@ -110,6 +111,7 @@ function App() {
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Questions" component={Questions} />
+          <Stack.Screen name="WineDetails" component={WineDetailScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

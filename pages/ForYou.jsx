@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 
 // Example wine data with additional properties for filtering
 const allWines = [
@@ -50,7 +50,7 @@ const allWines = [
   // Add more wines if needed
 ];
 
-const ForYou = ({ filters = {} }) => {
+const ForYou = ({ navigation, filters = {} }) => {
   // Filter wines based on the selected filters
   const filteredWines = allWines.filter((wine) => {
     return (
@@ -65,15 +65,15 @@ const ForYou = ({ filters = {} }) => {
     <ScrollView contentContainerStyle={styles.container}>
       {filteredWines.length > 0 ? (
         filteredWines.map((wine) => (
-          <View key={wine.id} style={styles.wineCard}>
+          <TouchableOpacity
+            key={wine.id}
+            style={styles.wineCard}
+            onPress={() => navigation.navigate('WineDetail', { wine })}
+          >
             <Text style={styles.wineName}>{wine.name}</Text>
             <Image source={{ uri: wine.imageUrl }} style={styles.wineImage} />
             <Text style={styles.wineDescription}>{wine.description}</Text>
-            <Text style={styles.wineDetails}>Type: {wine.type}</Text>
-            <Text style={styles.wineDetails}>Country: {wine.country}</Text>
-            <Text style={styles.wineDetails}>Grape: {wine.grape}</Text>
-            <Text style={styles.wineDetails}>Region: {wine.region}</Text>
-          </View>
+          </TouchableOpacity>
         ))
       ) : (
         <Text style={styles.noResults}>No wines match your filters.</Text>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
     paddingHorizontal: 15,
-    backgroundColor: '#f4f4f4', // Light background color for better contrast
+    backgroundColor: '#f4f4f4',
   },
   wineCard: {
     backgroundColor: '#fff',
@@ -98,35 +98,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 6,
     elevation: 5,
-    overflow: 'hidden', // Ensures the shadow effect is applied correctly
-    alignItems: 'center', // Center-aligns content horizontally
-    width: '100%', // Ensures card takes full width
+    overflow: 'hidden',
+    alignItems: 'center',
+    width: '100%',
   },
   wineName: {
     fontSize: 20,
-    color: '#333', // Darker color for better readability
+    color: '#333',
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'center', // Centers the text
+    textAlign: 'center',
   },
   wineImage: {
-    width: '90%', // Adjust width as needed
+    width: '90%',
     height: 300,
-    aspectRatio: 3 / 2, // Maintain aspect ratio
+    aspectRatio: 3 / 2,
     borderRadius: 10,
     marginBottom: 10,
   },
   wineDescription: {
     fontSize: 15,
-    color: '#333', // Darker color for better readability
+    color: '#333',
     fontWeight: 'bold',
     lineHeight: 20,
-    textAlign: 'center', // Centers the text
-  },
-  wineDetails: {
-    fontSize: 14,
-    color: '#666', // Slightly lighter color for details
-    marginVertical: 2,
+    textAlign: 'center',
   },
   noResults: {
     fontSize: 16,
