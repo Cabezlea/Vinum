@@ -1,14 +1,14 @@
- This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Vinum - Advanced Wine Discovery and Management App
 
-# Getting Started
+This is the official repository for **Vinum**, a cutting-edge [**React Native**](https://reactnative.dev) project aimed at revolutionizing how wine enthusiasts discover, manage, and enjoy wine. Built using [`@react-native-community/cli`](https://github.com/react-native-community/cli), Vinum leverages the full stack capabilities of React Native, Django, and PostgreSQL to deliver a seamless, intuitive user experience.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Getting Started
+
+>**Note**: Before you start, ensure you've completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) up to the "Creating a new application" step.
 
 ## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+Start **Metro**, the JavaScript _bundler_ for React Native:
 
 ```bash
 # using npm
@@ -16,7 +16,6 @@ npm start
 
 # OR using Yarn
 yarn start
-```
 
 ## Step 2: Start your Application
 
