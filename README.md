@@ -69,12 +69,12 @@ If you can't get this to work, see the [Troubleshooting](https://reactnative.dev
 
 ## Showing our process!
 
-Here are some screenshots of our work, how we have been doing inmense progress in the development of the app!
+Here are some screenshots of our work, how we have been making immense progress in the development of the app!
 
-![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress1.png)
-![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress2.png)
-![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress3.png)
-![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress4.png)
+<img src="https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress1.png" alt="Progress 1" width="300"/>
+<img src="https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress2.png" alt="Progress 2" width="300"/>
+<img src="https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress3.png" alt="Progress 3" width="300"/>
+<img src="https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress4.png" alt="Progress 4" width="300"/>
 
 # Learn More
 
