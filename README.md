@@ -67,6 +67,15 @@ You've successfully run and modified your React Native App. :partying_face:
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
+## Showing our process!
+
+Here are some screenshots of our work, how we have been doing inmense progress in the development of the app!
+
+![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress1.png)
+![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress2.png)
+![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress3.png)
+![image](https://github.com/Cabezlea/Vinum/blob/main/ProgressImages/Progress4.png)
+
 # Learn More
 
 To learn more about React Native, take a look at the following resources:
