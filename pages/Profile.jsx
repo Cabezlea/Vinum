@@ -19,21 +19,45 @@ const ProfilePage = () => {
         <View style={styles.menuContainer}>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Privacy</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Purchase History</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Help & Support</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Settings</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Invite a Friend</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Logout</Text>
+            <Image
+              source={require('../images/foward.png')}
+              style={styles.forwardIcon}
+            />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -99,7 +123,12 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 16,
-    color: '#001f3f',
+    color: '#000000',
+  },
+  forwardIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#000000', // Change this color as needed
   },
 });
 
