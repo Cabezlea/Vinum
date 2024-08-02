@@ -5,9 +5,6 @@ const ProfilePage = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Profile</Text>
-        </View>
         <View style={styles.profileContainer}>
           <Image
             source={require('../images/profilepic.jpg')}
@@ -51,17 +48,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     paddingBottom: 20,
-  },
-  header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 2,
-    backgroundColor: '#FFFFFF',
-  },
-  headerText: {
-    color: '#001f3f',
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   profileContainer: {
     alignItems: 'center',
