@@ -1,43 +1,45 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
 const ProfilePage = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Profile</Text>
-      </View>
-      <View style={styles.profileContainer}>
-        <Image
-          source={require('../images/profilepic.jpg')}
-          style={styles.profileImage}
-        />
-        <Text style={styles.profileName}>Montu Yadav</Text>
-        <Text style={styles.profileEmail}>mmontuyadav.331@gmail.com</Text>
-        <TouchableOpacity style={styles.proButton}>
-          <Text style={styles.proButtonText}>Upgrade to PRO</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Privacy</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Purchase History</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Help & Support</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Invite a Friend</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Profile</Text>
+        </View>
+        <View style={styles.profileContainer}>
+          <Image
+            source={require('../images/profilepic.jpg')}
+            style={styles.profileImage}
+          />
+          <Text style={styles.profileName}>Montu Yadav</Text>
+          <Text style={styles.profileEmail}>mmontuyadav.331@gmail.com</Text>
+          <TouchableOpacity style={styles.proButton}>
+            <Text style={styles.proButtonText}>Upgrade to PRO</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.menuContainer}>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Privacy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Purchase History</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Help & Support</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Invite a Friend</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menuItem}>
+            <Text style={styles.menuText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -46,6 +48,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#001f3f', // Vinum's blue theme color
+  },
+  scrollContainer: {
+    paddingBottom: 20, // Additional padding at the bottom
   },
   header: {
     justifyContent: 'center',
