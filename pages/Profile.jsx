@@ -46,7 +46,6 @@ const ProfilePage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#FFFFFF', // Vinum's blue theme color
   },
   scrollContainer: {
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 2,
     backgroundColor: '#FFFFFF',
   },
   headerText: {
