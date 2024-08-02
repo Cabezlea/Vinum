@@ -13,10 +13,10 @@ const ProfilePage = () => {
             source={require('../images/profilepic.jpg')}
             style={styles.profileImage}
           />
-          <Text style={styles.profileName}>Montu Yadav</Text>
-          <Text style={styles.profileEmail}>mmontuyadav.331@gmail.com</Text>
+          <Text style={styles.profileName}>El Doggy</Text>
+          <Text style={styles.profileEmail}>Eldoggy@gmail.com</Text>
           <TouchableOpacity style={styles.proButton}>
-            <Text style={styles.proButtonText}>Upgrade to PRO</Text>
+            <Text style={styles.proButtonText}>Upgrade To Pro</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.menuContainer}>
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#001f3f', // Vinum's blue theme color
+    backgroundColor: '#FFFFFF', // Vinum's blue theme color
   },
   scrollContainer: {
     paddingBottom: 20, // Additional padding at the bottom
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#001f3f',
+    backgroundColor: '#FFFFFF',
   },
   headerText: {
     color: '#FFFFFF',
