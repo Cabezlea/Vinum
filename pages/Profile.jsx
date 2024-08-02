@@ -5,52 +5,37 @@ const ProfilePage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Vinum</Text>
-        <TouchableOpacity style={styles.cartIconContainer}>
-          <Image source={require('../images/cart.png')} style={styles.cartIcon} />
-        </TouchableOpacity>
+        <Text style={styles.headerText}>Profile</Text>
       </View>
       <View style={styles.profileContainer}>
         <Image
-          source={require('../images/profilepic.jpg')} // Replace with your actual image source
+          source={require('../images/profilepic.jpg')}
           style={styles.profileImage}
         />
         <Text style={styles.profileName}>Montu Yadav</Text>
         <Text style={styles.profileEmail}>mmontuyadav.331@gmail.com</Text>
-      </View>
-      <View style={styles.tabContainer}>
-        <View style={styles.tabItem}>
-          <Text style={styles.tabText}>My Orders</Text>
-        </View>
-        <View style={styles.tabItem}>
-          <Text style={styles.tabText}>Wishlist</Text>
-          <View style={styles.notificationBadge}>
-            <Text style={styles.notificationText}>3</Text>
-          </View>
-        </View>
-        <View style={styles.tabItem}>
-          <Text style={styles.tabText}>Notifications</Text>
-          <View style={styles.notificationBadge}>
-            <Text style={styles.notificationText}>5</Text>
-          </View>
-        </View>
+        <TouchableOpacity style={styles.proButton}>
+          <Text style={styles.proButtonText}>Upgrade to PRO</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>My Clues Bucks</Text>
-          <Text style={styles.menuBadge}>30</Text>
+          <Text style={styles.menuText}>Privacy</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>My Profile</Text>
+          <Text style={styles.menuText}>Purchase History</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Location (Gautam Buddha Nagar)</Text>
+          <Text style={styles.menuText}>Help & Support</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>My Chat</Text>
+          <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Rate Your Purchase</Text>
+          <Text style={styles.menuText}>Invite a Friend</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItem}>
+          <Text style={styles.menuText}>Logout</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -60,25 +45,18 @@ const ProfilePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF5E1',
+    backgroundColor: '#001f3f', // Vinum's blue theme color
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
-    backgroundColor: '#8C001A',
+    backgroundColor: '#001f3f',
   },
   headerText: {
     color: '#FFFFFF',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  cartIconContainer: {
-    justifyContent: 'center',
-  },
-  cartIcon: {
-    width: 25,
-    height: 25,
   },
   profileContainer: {
     alignItems: 'center',
@@ -89,70 +67,48 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: '#8C001A',
+    borderColor: '#D52247',
   },
   profileName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#8C001A',
+    color: '#D52247',
     marginTop: 10,
   },
   profileEmail: {
     fontSize: 16,
-    color: '#555555',
+    color: '#FFFFFF',
     marginTop: 5,
   },
-  tabContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 10,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-  },
-  tabItem: {
-    alignItems: 'center',
-  },
-  tabText: {
-    fontSize: 16,
-    color: '#8C001A',
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: -5,
-    right: -10,
+  proButton: {
+    marginTop: 10,
     backgroundColor: '#D52247',
-    borderRadius: 10,
-    padding: 2,
-    minWidth: 20,
-    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
   },
-  notificationText: {
+  proButtonText: {
     color: '#FFFFFF',
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   menuContainer: {
-    marginTop: 20,
+    marginTop: 30,
     paddingHorizontal: 20,
   },
   menuItem: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    alignItems: 'center',
+    marginVertical: 5,
   },
   menuText: {
     fontSize: 16,
-    color: '#333333',
-  },
-  menuBadge: {
-    fontSize: 16,
-    color: '#D52247',
+    color: '#001f3f',
   },
 });
 
