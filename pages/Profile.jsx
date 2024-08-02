@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   profileEmail: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#D52247',
     marginTop: 5,
   },
   proButton: {
