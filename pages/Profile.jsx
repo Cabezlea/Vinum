@@ -46,10 +46,11 @@ const ProfilePage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF', // Vinum's blue theme color
+    flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   scrollContainer: {
-    paddingBottom: 20, // Additional padding at the bottom
+    paddingBottom: 20,
   },
   header: {
     justifyContent: 'center',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   headerText: {
-    color: '#FFFFFF',
+    color: '#001f3f',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   menuItem: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F5F5F5', // Light gray background for menu items
     borderRadius: 10,
     paddingVertical: 15,
     paddingHorizontal: 20,
