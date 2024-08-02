@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   menuContainer: {
-    marginTop: 30,
+    marginTop: 31,
     paddingHorizontal: 20,
   },
   menuItem: {
