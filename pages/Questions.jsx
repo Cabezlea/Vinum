@@ -5,7 +5,7 @@ import { useNavigation, CommonActions } from '@react-navigation/native';  // Imp
 
 const { width } = Dimensions.get('window');
 
-const Questions = () => {
+const Questions = ({ onSignIn }) => {
   const navigation = useNavigation();
 
   const [wineType, setWineType] = useState(null);
@@ -85,7 +85,17 @@ const Questions = () => {
           <TouchableOpacity
             style={styles.continueButton}
             onPress={() => {
-              onSignIn(); // Trigger sign-in
+              // Since Questions component is passed an onSignIn prop from App.jsx
+              // We first need to make sure we receive it
+              const filters = {
+                type: wineType,
+                sweetness: sweetness,
+                accompaniment: accompaniment,
+                priceRange: priceRange
+              };
+
+              // Pass the onSignIn as a prop to Questions component
+              onSignIn && onSignIn(filters);
             }}
           >
             <Text style={styles.continueButtonText}>Continue</Text>

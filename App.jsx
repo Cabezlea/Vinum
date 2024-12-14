@@ -110,7 +110,17 @@ function App() {
           </Stack.Screen>
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Questions" component={Questions} />
+          <Stack.Screen name="Questions">
+            {props => (
+              <Questions
+                {...props}
+                onSignIn={(filters) => {
+                  setIsSignedIn(true);
+                  // The filters will be available in ForYou screen
+                }}
+              />
+            )}
+          </Stack.Screen>
           <Stack.Screen name="WineDetails" component={WineDetailScreen} />
         </Stack.Navigator>
       )}
