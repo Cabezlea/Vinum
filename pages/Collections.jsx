@@ -24,7 +24,7 @@ const CollectionsPage = () => {
       region: 'Bordeaux, France',
       title: "Château Margaux Collection",
       description: "Experience the epitome of French wine-making tradition",
-      image: 'https://media.giphy.com/media/3o7bugwhhJE9WhxkYw/giphy.gif', // Wine pouring giphy
+      image: 'https://media.giphy.com/media/3o7bugwhhJE9WhxkYw/giphy.gif',
       stats: { vintage: '2015', rating: '96/100', price: '$890' }
     },
     {
@@ -32,7 +32,7 @@ const CollectionsPage = () => {
       region: 'Tuscany, Italy',
       title: "Super Tuscan Excellence",
       description: "Bold, modern interpretations of Italian classics",
-      image: 'https://media.giphy.com/media/3o7bugwhhJE9WhxkYw/giphy.gif', // Wine swirling giphy
+      image: 'https://media.giphy.com/media/3o7bugwhhJE9WhxkYw/giphy.gif',
       stats: { vintage: '2018', rating: '94/100', price: '$450' }
     },
     {
@@ -61,14 +61,12 @@ const CollectionsPage = () => {
     },
   ];
 
-  // Shuffle collections when component mounts or user returns to screen
   useEffect(() => {
     shuffleCollections();
   }, []);
 
   const shuffleCollections = () => {
-    const shuffled = [...collections]
-      .sort(() => Math.random() - 0.5);
+    const shuffled = [...collections].sort(() => Math.random() - 0.5);
     setShuffledCollections(shuffled);
   };
 
@@ -87,10 +85,7 @@ const CollectionsPage = () => {
 
     return (
       <Animated.View
-        style={[
-          styles.collectionCard,
-          { transform: [{ scale }] }
-        ]}
+        style={[styles.collectionCard, { transform: [{ scale }] }]}
       >
         <LinearGradient
           colors={['#073152', '#0D1B2A']}
@@ -152,9 +147,9 @@ const CollectionsPage = () => {
         pagingEnabled
         showsVerticalScrollIndicator={false}
         vertical
-        snapToInterval={height} // Add this
-        decelerationRate="fast" // Add this
-        bounces={false} // Add this
+        snapToInterval={height}
+        decelerationRate="fast"
+        bounces={false}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -163,7 +158,7 @@ const CollectionsPage = () => {
           const newIndex = Math.round(event.nativeEvent.contentOffset.y / height);
           setActiveIndex(newIndex);
         }}
-        contentContainerStyle={{ backgroundColor: '#0D1B2A' }} // Add this
+        contentContainerStyle={{ backgroundColor: '#0D1B2A' }}
       />
     </View>
   );

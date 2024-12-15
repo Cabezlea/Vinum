@@ -68,9 +68,38 @@ function MainTabs({ setIsSignedIn }) {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="For You" component={ForYouScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Collections" component={CollectionsScreen} />
+        {/* For You Screen */}
+        <Tab.Screen
+          name="For You"
+          component={ForYouScreen}
+          options={{
+            contentStyle: {
+              paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight,
+            },
+          }}
+        />
+
+        {/* Search Screen */}
+        <Tab.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            contentStyle: {
+              paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight,
+            },
+          }}
+        />
+
+        {/* Collections Screen (no padding or SafeAreaView) */}
+        <Tab.Screen
+          name="Collections"
+          component={CollectionsScreen}
+          options={{
+            contentStyle: { paddingTop: 0 },
+          }}
+        />
+
+        {/* Profile Screen */}
         <Tab.Screen name="Profile">
           {props => <Profile {...props} onSignOut={() => setIsSignedIn(false)} />}
         </Tab.Screen>
@@ -83,45 +112,46 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
-    <>
-      <StatusBar barStyle="light-content" backgroundColor="#0D1B2A" />
-      <View style={styles.container}>
-        <NavigationContainer>
-          {isSignedIn ? (
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false
-              }}
-            >
-              <Stack.Screen name="Vinum">
-                {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
-              </Stack.Screen>
-            </Stack.Navigator>
-          ) : (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="SignIn">
-                {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
-              </Stack.Screen>
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="Welcome" component={Welcome} />
-              <Stack.Screen name="Questions">
-                {props => (
-                  <Questions
-                    {...props}
-                    onSignIn={(filters) => {
-                      setIsSignedIn(true);
-                    }}
-                  />
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="WineDetails" component={WineDetailScreen} />
-            </Stack.Navigator>
-          )}
-        </NavigationContainer>
-      </View>
-    </>
+    <NavigationContainer>
+      <StatusBar barStyle="light-content" backgroundColor="#0D1B2A" translucent={true} />
+      {isSignedIn ? (
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#0D1B2A' },
+          }}
+        >
+          <Stack.Screen name="Vinum">
+            {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
+          </Stack.Screen>
+          <Stack.Screen name="WineDetails" component={WineDetailScreen} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#0D1B2A' },
+          }}
+        >
+          <Stack.Screen name="SignIn">
+            {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
+          </Stack.Screen>
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Questions">
+            {props => (
+              <Questions
+                {...props}
+                onSignIn={() => setIsSignedIn(true)}
+              />
+            )}
+          </Stack.Screen>
+        </Stack.Navigator>
+      )}
+    </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

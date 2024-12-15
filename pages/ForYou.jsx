@@ -1,7 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import FastImage from 'react-native-fast-image';
+import { useNavigation } from '@react-navigation/native';
 
-// Example wine data with additional properties for filtering
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
 const allWines = [
   {
     id: 1,
@@ -47,11 +60,96 @@ const allWines = [
     grape: 'Sauvignon Blanc',
     region: 'Marlborough',
   },
-  // Add more wines if needed
 ];
 
+const WineCard = ({ wine, onPress, index }) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <Animated.View
+      style={[
+        styles.cardContainer,
+        {
+          transform: [{ scale }]
+        }
+      ]}
+    >
+      <TouchableOpacity
+        activeOpacity={0.95}
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        style={styles.touchable}
+      >
+        <FastImage
+          source={{ uri: wine.imageUrl }}
+          style={styles.backgroundImage}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+
+        <View style={styles.overlay}>
+          <LinearGradient
+            colors={['transparent', '#0D1B2A']}
+            style={styles.gradient}
+          >
+            <View style={styles.contentContainer}>
+              <View style={styles.headerContainer}>
+                <Text style={styles.wineName}>{wine.name}</Text>
+                <Text style={styles.wineYear}>{wine.year}</Text>
+              </View>
+
+              <View style={styles.details}>
+                <View style={styles.locationContainer}>
+                  <Text style={styles.location}>
+                    {wine.region}, {wine.country}
+                  </Text>
+                  <Text style={styles.grape}>{wine.grape}</Text>
+                </View>
+
+                <View style={styles.typeBadge}>
+                  <Text style={styles.typeText}>{wine.type}</Text>
+                </View>
+              </View>
+
+              <TouchableOpacity
+                onPress={onPress}
+                style={styles.viewDetailsButton}
+              >
+                <LinearGradient
+                  colors={['#D52247', '#073152']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.detailsGradient}
+                >
+                  <Text style={styles.viewDetailsText}>Explore Wine →</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </LinearGradient>
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
+
 const ForYou = ({ navigation, filters = {} }) => {
-  // Filter wines based on the selected filters
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const filteredWines = allWines.filter((wine) => {
     return (
       (!filters.type || wine.type === filters.type) &&
@@ -61,73 +159,157 @@ const ForYou = ({ navigation, filters = {} }) => {
     );
   });
 
+  const handleScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+    {
+      useNativeDriver: true,
+      listener: ({ nativeEvent }) => {
+        setCurrentIndex(Math.round(nativeEvent.contentOffset.x / SCREEN_WIDTH));
+      },
+    }
+  );
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {filteredWines.length > 0 ? (
-        filteredWines.map((wine) => (
-          <TouchableOpacity
-            key={wine.id}
-            style={styles.wineCard}
-            onPress={() => navigation.navigate('WineDetail', { wine })}
-          >
-            <Text style={styles.wineName}>{wine.name}</Text>
-            <Image source={{ uri: wine.imageUrl }} style={styles.wineImage} />
-            <Text style={styles.wineDescription}>{wine.description}</Text>
-          </TouchableOpacity>
-        ))
-      ) : (
-        <Text style={styles.noResults}>No wines match your filters.</Text>
-      )}
-    </ScrollView>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
+      <Animated.FlatList
+        data={filteredWines}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        renderItem={({ item, index }) => (
+          <WineCard
+            wine={item}
+            index={index}
+            onPress={() => navigation.navigate('WineDetail', { wine: item })}
+          />
+        )}
+        snapToInterval={SCREEN_WIDTH}
+        decelerationRate="fast"
+      />
+
+      <View style={styles.pagination}>
+        {filteredWines.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.paginationDot,
+              currentIndex === index && styles.paginationDotActive,
+            ]}
+          />
+        ))}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
-    paddingHorizontal: 15,
-    backgroundColor: '#f4f4f4',
+    flex: 1,
+    backgroundColor: '#0D1B2A',
   },
-  wineCard: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    marginBottom: 20,
-    padding: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    elevation: 5,
-    overflow: 'hidden',
-    alignItems: 'center',
+  cardContainer: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+  },
+  touchable: {
+    flex: 1,
+  },
+  backgroundImage: {
     width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 20,
+  },
+  contentContainer: {
+    paddingBottom: 100,
+  },
+  headerContainer: {
+    marginBottom: 20,
   },
   wineName: {
+    fontSize: 42,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+  },
+  wineYear: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    opacity: 0.9,
+    marginTop: 5,
+  },
+  details: {
+    marginBottom: 30,
+  },
+  locationContainer: {
+    marginBottom: 15,
+  },
+  location: {
     fontSize: 20,
-    color: '#333',
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
+    color: '#FFFFFF',
+    opacity: 0.9,
   },
-  wineImage: {
-    width: '90%',
-    height: 300,
-    aspectRatio: 3 / 2,
-    borderRadius: 10,
-    marginBottom: 10,
+  grape: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    opacity: 0.7,
+    marginTop: 5,
   },
-  wineDescription: {
-    fontSize: 15,
-    color: '#333',
-    fontWeight: 'bold',
-    lineHeight: 20,
-    textAlign: 'center',
+  typeBadge: {
+    backgroundColor: '#D52247',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    borderRadius: 25,
   },
-  noResults: {
+  typeText: {
+    color: '#FFFFFF',
     fontSize: 16,
-    color: '#999',
-    textAlign: 'center',
-    marginVertical: 20,
+    fontWeight: '600',
+  },
+  viewDetailsButton: {
+    marginTop: 20,
+  },
+  detailsGradient: {
+    padding: 18,
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  viewDetailsText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  pagination: {
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 40,
+    alignSelf: 'center',
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    marginHorizontal: 4,
+  },
+  paginationDotActive: {
+    backgroundColor: '#FFFFFF',
+    width: 24,
   },
 });
 
