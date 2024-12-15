@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SafeAreaView, StatusBar, Platform } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -6,13 +7,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import SignInScreen from './pages/SignIn';
 import ForYouScreen from './pages/ForYou';
-import ProfileScreen from './pages/Profile';
+import Profile from './pages/Profile';
 import SearchScreen from './pages/Search';
 import CollectionsScreen from './pages/Collections';
 import SignUp from './pages/SignUp';
 import Welcome from './pages/Welcome';
 import Questions from './pages/Questions';
-import WineDetailScreen from './pages/WineDetails'; // Import the WineDetailScreen
+import WineDetailScreen from './pages/WineDetails';
 import { useState } from 'react';
 
 enableScreens();
@@ -20,7 +21,7 @@ enableScreens();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function MainTabs() {
+function MainTabs({ setIsSignedIn }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -59,25 +60,19 @@ function MainTabs() {
           backgroundColor: '#001C2B',
         },
         tabBarLabelStyle: {
-          fontSize: 13, // Change this value to make the font larger
-          fontWeight: 'bold', // Make the font bold
+          fontSize: 13,
+          fontWeight: 'bold',
         },
-        headerShown: false, // Hide the header in the Tab.Navigator
+        headerShown: false,
       })}
     >
       <Tab.Screen name="For You" component={ForYouScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Collections" component={CollectionsScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile">
+        {props => <Profile {...props} onSignOut={() => setIsSignedIn(false)} />}
+      </Tab.Screen>
     </Tab.Navigator>
-  );
-}
-
-function CustomHeaderTitle() {
-  return (
-    <View style={styles.headerTitleContainer}>
-      <Text style={styles.headerTitle}>Vinum</Text>
-    </View>
   );
 }
 
@@ -85,52 +80,50 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
-    <NavigationContainer>
-      {isSignedIn ? (
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: true,
-            headerTitle: () => <CustomHeaderTitle />,
-            headerRight: () => (
-              <TouchableOpacity style={{ marginRight: 10 }}>
-                <Image
-                  source={require('./images/cart.png')}
-                  style={styles.cartIcon}
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="light-content" backgroundColor="#0D1B2A" />
+      <NavigationContainer>
+        {isSignedIn ? (
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            <Stack.Screen name="Vinum">
+              {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
+            </Stack.Screen>
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="SignIn">
+              {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
+            </Stack.Screen>
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="Questions">
+              {props => (
+                <Questions
+                  {...props}
+                  onSignIn={(filters) => {
+                    setIsSignedIn(true);
+                  }}
                 />
-              </TouchableOpacity>
-            ),
-          }}
-        >
-          <Stack.Screen name="Vinum" component={MainTabs} />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="SignIn">
-            {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
-          </Stack.Screen>
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Questions">
-            {props => (
-              <Questions
-                {...props}
-                onSignIn={(filters) => {
-                  setIsSignedIn(true);
-                  // The filters will be available in ForYou screen
-                }}
-              />
-            )}
-          </Stack.Screen>
-          <Stack.Screen name="WineDetails" component={WineDetailScreen} />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+              )}
+            </Stack.Screen>
+            <Stack.Screen name="WineDetails" component={WineDetailScreen} />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
-export default App;
-
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#0D1B2A',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
   icon: {
     width: 20,
     height: 20,
@@ -157,3 +150,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default App;
