@@ -19,4 +19,8 @@ wine:
                - Sending data back to frontend
 - migrations/  - Keeps track of database changes
 
-source venv/bin/activate
+Python venv activation:
+- source venv/bin/activate
+
+Django Server Activation:
+- python manage.py runserver 0.0.0.0:8000
