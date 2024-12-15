@@ -23,56 +23,59 @@ const Tab = createBottomTabNavigator();
 
 function MainTabs({ setIsSignedIn }) {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
-          let iconName;
+    <View style={styles.tabContainer}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            let iconName;
 
-          switch (route.name) {
-            case 'For You':
-              iconName = require('./images/foryou.png');
-              break;
-            case 'Search':
-              iconName = require('./images/search.png');
-              break;
-            case 'Collections':
-              iconName = require('./images/wine.png');
-              break;
-            case 'Profile':
-              iconName = require('./images/profile.png');
-              break;
-          }
+            switch (route.name) {
+              case 'For You':
+                iconName = require('./images/foryou.png');
+                break;
+              case 'Search':
+                iconName = require('./images/search.png');
+                break;
+              case 'Collections':
+                iconName = require('./images/wine.png');
+                break;
+              case 'Profile':
+                iconName = require('./images/profile.png');
+                break;
+            }
 
-          return (
-            <Image
-              source={iconName}
-              style={[
-                styles.icon,
-                { opacity: focused ? 1 : 0.5 },
-                focused && styles.focusedIcon,
-              ]}
-            />
-          );
-        },
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: '#c7c2c2d9',
-        tabBarStyle: {
-          backgroundColor: '#001C2B',
-        },
-        tabBarLabelStyle: {
-          fontSize: 13,
-          fontWeight: 'bold',
-        },
-        headerShown: false,
-      })}
-    >
-      <Tab.Screen name="For You" component={ForYouScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Collections" component={CollectionsScreen} />
-      <Tab.Screen name="Profile">
-        {props => <Profile {...props} onSignOut={() => setIsSignedIn(false)} />}
-      </Tab.Screen>
-    </Tab.Navigator>
+            return (
+              <Image
+                source={iconName}
+                style={[
+                  styles.icon,
+                  { opacity: focused ? 1 : 0.5 },
+                  focused && styles.focusedIcon,
+                ]}
+              />
+            );
+          },
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: '#c7c2c2d9',
+          tabBarStyle: {
+            backgroundColor: '#001C2B',
+            borderTopWidth: 0,
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+            fontWeight: 'bold',
+          },
+          headerShown: false,
+        })}
+      >
+        <Tab.Screen name="For You" component={ForYouScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Collections" component={CollectionsScreen} />
+        <Tab.Screen name="Profile">
+          {props => <Profile {...props} onSignOut={() => setIsSignedIn(false)} />}
+        </Tab.Screen>
+      </Tab.Navigator>
+    </View>
   );
 }
 
@@ -80,49 +83,54 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <>
       <StatusBar barStyle="light-content" backgroundColor="#0D1B2A" />
-      <NavigationContainer>
-        {isSignedIn ? (
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false
-            }}
-          >
-            <Stack.Screen name="Vinum">
-              {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
-            </Stack.Screen>
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="SignIn">
-              {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
-            </Stack.Screen>
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="Welcome" component={Welcome} />
-            <Stack.Screen name="Questions">
-              {props => (
-                <Questions
-                  {...props}
-                  onSignIn={(filters) => {
-                    setIsSignedIn(true);
-                  }}
-                />
-              )}
-            </Stack.Screen>
-            <Stack.Screen name="WineDetails" component={WineDetailScreen} />
-          </Stack.Navigator>
-        )}
-      </NavigationContainer>
-    </SafeAreaView>
+      <View style={styles.container}>
+        <NavigationContainer>
+          {isSignedIn ? (
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false
+              }}
+            >
+              <Stack.Screen name="Vinum">
+                {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
+              </Stack.Screen>
+            </Stack.Navigator>
+          ) : (
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="SignIn">
+                {props => <SignInScreen {...props} onSignIn={() => setIsSignedIn(true)} />}
+              </Stack.Screen>
+              <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="Welcome" component={Welcome} />
+              <Stack.Screen name="Questions">
+                {props => (
+                  <Questions
+                    {...props}
+                    onSignIn={(filters) => {
+                      setIsSignedIn(true);
+                    }}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="WineDetails" component={WineDetailScreen} />
+            </Stack.Navigator>
+          )}
+        </NavigationContainer>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
     backgroundColor: '#0D1B2A',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  tabContainer: {
+    flex: 1,
+    backgroundColor: '#0D1B2A',
   },
   icon: {
     width: 20,

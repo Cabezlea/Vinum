@@ -152,6 +152,9 @@ const CollectionsPage = () => {
         pagingEnabled
         showsVerticalScrollIndicator={false}
         vertical
+        snapToInterval={height} // Add this
+        decelerationRate="fast" // Add this
+        bounces={false} // Add this
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -160,6 +163,7 @@ const CollectionsPage = () => {
           const newIndex = Math.round(event.nativeEvent.contentOffset.y / height);
           setActiveIndex(newIndex);
         }}
+        contentContainerStyle={{ backgroundColor: '#0D1B2A' }} // Add this
       />
     </View>
   );
@@ -173,10 +177,12 @@ const styles = StyleSheet.create({
   collectionCard: {
     height: height,
     width: width,
+    backgroundColor: '#0D1B2A',
   },
   gradientBackground: {
     flex: 1,
     justifyContent: 'space-between',
+    paddingBottom: 20,
   },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
@@ -186,15 +192,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     padding: 20,
-    paddingTop: 60, // Account for status bar
-    paddingBottom: 90, // Account for tab bar
+    paddingTop: 40,
+    paddingBottom: 50,
   },
   mainContent: {
-    flex: 1,
-    justifyContent: 'center',
+    flex: 0,
+    marginTop: 20,
   },
   bottomContent: {
-    marginTop: 'auto',
+    paddingBottom: 20,
   },
   region: {
     color: '#FFFFFF',
