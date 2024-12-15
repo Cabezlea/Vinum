@@ -18,3 +18,5 @@ wine:
                - Getting data from database
                - Sending data back to frontend
 - migrations/  - Keeps track of database changes
+
+source venv/bin/activate
