@@ -72,3 +72,14 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Python/Django
+*.pyc
+__pycache__/
+venv/
