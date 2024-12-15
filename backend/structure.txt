@@ -1,0 +1,20 @@
+vinum_backend:
+- Contains overall settings and configuration
+- __init__.py - Empty file that tells Python this folder is a Python package
+- settings.py: Like the setting menu of backend, will contain API, DB info, and security settings
+- urls.py: gets the URL calls from the front-end, like the main reception desk
+- wsgi.py & asgi.py: Used when we deploy the app
+
+wine:
+- Where actual backend code is and add functionality
+- Talks to the database, makes AI calls, and handles request from the front-end
+- __init__.py  - Empty file marking this as a Python package
+- admin.py     - For Django's built-in admin panel
+- apps.py      - Basic app configuration
+- models.py    - Defines your database tables
+- tests.py     - For writing tests
+- views.py     - Contains code for:
+               - Making Gemini AI calls
+               - Getting data from database
+               - Sending data back to frontend
+- migrations/  - Keeps track of database changes
