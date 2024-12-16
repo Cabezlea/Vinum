@@ -12,7 +12,9 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -23,27 +25,29 @@ const SUGGESTED_PROMPTS = [
     prompt: "I'm looking for wine recommendations for a special dinner."
   },
   {
-    icon: '🤔',
+    icon: '🍽️',
     text: 'Wine pairings',
     prompt: "What wine pairs well with pasta carbonara?"
   },
   {
-    icon: '📚',
+    icon: '🥂',
     text: 'Learn about wines',
     prompt: "Explain the difference between Cabernet and Merlot."
   },
   {
-    icon: '💝',
+    icon: '🎁',
     text: 'Gift suggestions',
     prompt: "What's a good wine for a wedding gift?"
   },
 ];
+
 
 const Search = () => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [currentConversationId, setCurrentConversationId] = useState(Date.now());
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -53,6 +57,15 @@ const Search = () => {
       }]);
     }
   }, []);
+
+  const resetConversation = () => {
+    setCurrentConversationId(Date.now());
+    setMessages([{
+      type: 'bot',
+      content: "Greetings, discerning wine enthusiast. I am your personal sommelier, ready to guide you through the world of wines. How may I assist you today?"
+    }]);
+    setShowWelcome(true);
+  };
 
   const handleSearch = async (searchQuery = query) => {
     if (!searchQuery.trim()) return;
@@ -113,6 +126,22 @@ const Search = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <LinearGradient
+        colors={['rgba(13, 27, 42, 0.95)', '#0D1B2A']}
+        style={styles.header}
+      >
+        <View style={styles.headerContent}>
+          <Text style={styles.headerTitle}>Wine Sommelier</Text>
+          <TouchableOpacity
+            style={styles.resetButton}
+            onPress={resetConversation}
+          >
+            <Icon name="refresh" size={24} color="#D52247" />
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
+
+
       <ScrollView
         style={styles.messagesContainer}
         contentContainerStyle={styles.scrollContent}
@@ -183,6 +212,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0D1B2A',
   },
+  header: {
+    paddingTop: Platform.OS === 'ios' ? 50 : 20,
+    paddingBottom: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#0D1B2A',
+  },
+  headerContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    color: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  resetButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(213, 34, 71, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   messagesContainer: {
     flex: 1,
     paddingHorizontal: 15,
@@ -215,6 +268,14 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
     borderRadius: 20,
     padding: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   userMessageContent: {
     backgroundColor: '#D52247',
@@ -253,14 +314,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(213, 34, 71, 0.1)',
     borderRadius: 12,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   promptIcon: {
-    fontSize: 20,
+    fontSize: 24,
     marginRight: 10,
+    color: '#FFFFFF',
   },
   promptText: {
     color: '#FFFFFF',
     fontSize: 16,
+    marginLeft: 10,
   },
   loadingContainer: {
     flexDirection: 'row',

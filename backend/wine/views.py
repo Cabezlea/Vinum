@@ -12,9 +12,47 @@ class WineSearchView(APIView):
         query = request.data.get('query', '')
 
         try:
-            # We'll enhance this prompt later
-            prompt = f"Act as a wine expert sommelier. Answer this wine-related question: {query}"
+            # Structured prompt for consistent, well-formatted responses
+            prompt = f"""You are a knowledgeable and sophisticated wine sommelier. Provide elegant, detailed responses following these formats:
+
+For wine recommendations:
+- [Wine Name] - [Year]
+  Region: [Region]
+  Price Range: [Price Range]
+  Description: [2-3 sentences about taste, aroma, and character]
+  
+For wine education:
+[Main Topic]
+- [Key point with brief explanation]
+- [Additional insights]
+
+For wine pairings:
+- [Food Item]
+  Recommended Wine: [Wine Type/Name]
+  Why it works: [Brief explanation]
+
+For general questions:
+Provide clear, concise responses with bullet points for multiple items.
+Maintain a sophisticated yet approachable tone.
+Include specific examples where relevant.
+
+Question: {query}
+
+Remember to:
+- Focus on premium and luxury wines when appropriate
+- Include region-specific information
+- Explain wine characteristics in accessible terms
+- Suggest specific producers or vintages when relevant"""
+
             response = model.generate_content(prompt)
-            return Response({'response': response.text})
+            return Response({
+                'response': response.text,
+                'success': True
+            })
+
         except Exception as e:
-            return Response({'error': str(e)}, status=500)
+            return Response({
+                'error': str(e),
+                'message': 'Our sommelier is currently unavailable. Please try again shortly.',
+                'success': False
+            }, status=500)
