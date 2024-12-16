@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Animated, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { Animated, View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 const { width } = Dimensions.get('window');
@@ -31,6 +31,46 @@ const AnimatedButton = ({ onPress, style, children }) => {
   );
 };
 
+const CartButton = () => {
+  const scale = useRef(new Animated.Value(1)).current;
+  const navigation = useNavigation();
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 0.9,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <TouchableOpacity
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={() => navigation.navigate('Cart')}
+      style={styles.cartButtonContainer}
+    >
+      <Animated.View style={[{ transform: [{ scale }] }]}>
+        <LinearGradient
+          colors={['rgba(213, 34, 71, 0.9)', 'rgba(7, 49, 82, 0.9)']}
+          style={styles.cartButton}
+        >
+          <Image
+            source={require('../images/cart.png')}
+            style={styles.cartIcon}
+          />
+        </LinearGradient>
+      </Animated.View>
+    </TouchableOpacity>
+  );
+};
+
 const ProfilePage = ({ onSignOut }) => {
   const navigation = useNavigation();
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -43,39 +83,7 @@ const ProfilePage = ({ onSignOut }) => {
 
   return (
     <View style={styles.container}>
-      {/* Dynamic Header */}
-      <Animated.View
-        style={[
-          styles.header,
-          {
-            opacity: scrollY.interpolate({
-              inputRange: [0, 100],
-              outputRange: [1, 0],
-              extrapolate: 'clamp',
-            }),
-          },
-        ]}
-      >
-        <TouchableOpacity style={styles.cartButton}>
-          <Animated.Image
-            source={require('../images/cart.png')}
-            style={[
-              styles.cartIcon,
-              {
-                transform: [
-                  {
-                    translateX: scrollY.interpolate({
-                      inputRange: [0, 100],
-                      outputRange: [0, 100],
-                      extrapolate: 'clamp',
-                    }),
-                  },
-                ],
-              },
-            ]}
-          />
-        </TouchableOpacity>
-      </Animated.View>
+      <CartButton />
 
       <Animated.ScrollView
         contentContainerStyle={styles.scrollContainer}
@@ -85,7 +93,6 @@ const ProfilePage = ({ onSignOut }) => {
         )}
         scrollEventThrottle={16}
       >
-        {/* Decorative Top Banner */}
         <LinearGradient
           colors={['#0D1B2A', '#073152']}
           style={styles.topBanner}
@@ -144,7 +151,10 @@ const ProfilePage = ({ onSignOut }) => {
             />
           </AnimatedButton>
 
-          <AnimatedButton style={styles.menuItem}>
+          <AnimatedButton
+            style={styles.menuItem}
+            onPress={() => navigation.navigate('Orders')}
+          >
             <View style={styles.menuItemLeft}>
               <Image
                 source={require('../images/cart.png')}
@@ -214,25 +224,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0D1B2A',
   },
-  header: {
+  cartButtonContainer: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    zIndex: 100,
-    paddingHorizontal: 20,
+    top: Platform.OS === 'ios' ? 60 : 40,
+    right: 20,
+    zIndex: 999,
   },
   cartButton: {
-    padding: 10,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   cartIcon: {
-    width: 24,
-    height: 24,
+    width: 22,
+    height: 22,
     tintColor: '#FFFFFF',
   },
   scrollContainer: {

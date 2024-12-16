@@ -12,6 +12,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
+import { Image } from 'react-native';
+
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -168,10 +170,50 @@ const ForYou = ({ navigation, filters = {} }) => {
       },
     }
   );
+  const CartButton = () => {
+    const scale = useRef(new Animated.Value(1)).current;
+    const navigation = useNavigation();
+
+    const handlePressIn = () => {
+      Animated.spring(scale, {
+        toValue: 0.9,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    const handlePressOut = () => {
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    return (
+      <TouchableOpacity
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={() => navigation.navigate('Cart')}
+        style={styles.cartButtonContainer}
+      >
+        <Animated.View style={[{ transform: [{ scale }] }]}>
+          <LinearGradient
+            colors={['rgba(213, 34, 71, 0.9)', 'rgba(7, 49, 82, 0.9)']}
+            style={styles.cartButton}
+          >
+            <Image
+              source={require('../images/cart.png')}
+              style={styles.cartIcon}
+            />
+          </LinearGradient>
+        </Animated.View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
+      <CartButton />
 
       <Animated.FlatList
         data={filteredWines}
@@ -310,6 +352,32 @@ const styles = StyleSheet.create({
   paginationDotActive: {
     backgroundColor: '#FFFFFF',
     width: 24,
+  },
+  cartButtonContainer: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 60 : 40,
+    right: 20,
+    zIndex: 999,
+  },
+  cartButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cartIcon: {
+    width: 22,
+    height: 22,
+    tintColor: '#FFFFFF',
   },
 });
 
