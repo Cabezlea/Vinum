@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,30 +9,64 @@ import {
   ScrollView,
   SafeAreaView,
   Platform,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Animatable from 'react-native-animatable';
+
+const { width } = Dimensions.get('window');
+
+const SUGGESTED_PROMPTS = [
+  {
+    icon: '🍷',
+    text: 'Wine recommendations',
+    prompt: "I'm looking for wine recommendations for a special dinner."
+  },
+  {
+    icon: '🤔',
+    text: 'Wine pairings',
+    prompt: "What wine pairs well with pasta carbonara?"
+  },
+  {
+    icon: '📚',
+    text: 'Learn about wines',
+    prompt: "Explain the difference between Cabernet and Merlot."
+  },
+  {
+    icon: '💝',
+    text: 'Gift suggestions',
+    prompt: "What's a good wine for a wedding gift?"
+  },
+];
 
 const Search = () => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([{
+        type: 'bot',
+        content: "Greetings, discerning wine enthusiast. I am your personal sommelier, ready to guide you through the world of wines. How may I assist you today?"
+      }]);
+    }
+  }, []);
 
-    const userMessage = query;
+  const handleSearch = async (searchQuery = query) => {
+    if (!searchQuery.trim()) return;
+
     setQuery('');
-    setMessages(prev => [...prev, { type: 'user', content: userMessage }]);
+    setMessages(prev => [...prev, { type: 'user', content: searchQuery }]);
     setLoading(true);
+    setShowWelcome(false);
 
     try {
       const response = await fetch('http://192.168.12.120:8000/api/search/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: userMessage })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: searchQuery })
       });
 
       const data = await response.json();
@@ -84,6 +118,26 @@ const Search = () => {
         contentContainerStyle={styles.scrollContent}
       >
         {messages.map((message, index) => renderMessage(message, index))}
+
+        {showWelcome && (
+          <Animatable.View
+            animation="fadeIn"
+            style={styles.suggestedPromptsContainer}
+          >
+            <Text style={styles.suggestedTitle}>I can help you with:</Text>
+            {SUGGESTED_PROMPTS.map((prompt, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.promptButton}
+                onPress={() => handleSearch(prompt.prompt)}
+              >
+                <Text style={styles.promptIcon}>{prompt.icon}</Text>
+                <Text style={styles.promptText}>{prompt.text}</Text>
+              </TouchableOpacity>
+            ))}
+          </Animatable.View>
+        )}
+
         {loading && (
           <View style={styles.loadingContainer}>
             <ActivityIndicator color="#D52247" />
@@ -106,14 +160,17 @@ const Search = () => {
           multiline
         />
         <TouchableOpacity
-          style={styles.sendButton}
-          onPress={handleSearch}
+          style={[
+            styles.sendButton,
+            query.trim() ? styles.sendButtonActive : null
+          ]}
+          onPress={() => handleSearch()}
           disabled={loading || !query.trim()}
         >
           <Icon
             name="send"
             size={24}
-            color={query.trim() ? "#D52247" : "#999"}
+            color={query.trim() ? "#FFFFFF" : "#666"}
           />
         </TouchableOpacity>
       </Animatable.View>
@@ -124,7 +181,7 @@ const Search = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0D1B2A',
   },
   messagesContainer: {
     flex: 1,
@@ -149,7 +206,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'rgba(213, 34, 71, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
@@ -164,7 +221,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
   },
   botMessageContent: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#073152',
     borderBottomLeftRadius: 5,
   },
   messageText: {
@@ -175,7 +232,35 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   botMessageText: {
-    color: '#0D1B2A',
+    color: '#FFFFFF',
+  },
+  suggestedPromptsContainer: {
+    padding: 20,
+    backgroundColor: 'rgba(7, 49, 82, 0.5)',
+    borderRadius: 15,
+    margin: 10,
+  },
+  suggestedTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    marginBottom: 15,
+  },
+  promptButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: 'rgba(213, 34, 71, 0.1)',
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  promptIcon: {
+    fontSize: 20,
+    marginRight: 10,
+  },
+  promptText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
   loadingContainer: {
     flexDirection: 'row',
@@ -185,7 +270,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginLeft: 10,
-    color: '#666',
+    color: '#FFFFFF',
     fontSize: 14,
   },
   inputContainer: {
@@ -194,31 +279,35 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderTopWidth: 1,
-    borderTopColor: '#F0F0F0',
-    backgroundColor: '#FFFFFF',
+    borderTopColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: '#0D1B2A',
     ...Platform.select({
       ios: {
-        paddingBottom: 30 // Add extra padding for iPhone X and newer
+        paddingBottom: 30
       }
     })
   },
   input: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#073152',
     borderRadius: 25,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginRight: 10,
     fontSize: 16,
+    color: '#FFFFFF',
     maxHeight: 100,
   },
   sendButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#073152',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  sendButtonActive: {
+    backgroundColor: '#D52247',
   },
 });
 
