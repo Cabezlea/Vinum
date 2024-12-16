@@ -14,6 +14,8 @@ import SignUp from './pages/SignUp';
 import Welcome from './pages/Welcome';
 import Questions from './pages/Questions';
 import WineDetailScreen from './pages/WineDetails';
+import Cart from './pages/Cart';
+import Orders from './pages/Orders';
 import { useState } from 'react';
 
 enableScreens();
@@ -125,6 +127,8 @@ function App() {
             {props => <MainTabs {...props} setIsSignedIn={setIsSignedIn} />}
           </Stack.Screen>
           <Stack.Screen name="WineDetails" component={WineDetailScreen} />
+          <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="Orders" component={Orders} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator
@@ -151,7 +155,6 @@ function App() {
     </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
