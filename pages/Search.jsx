@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Platform,
   Dimensions,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -40,7 +41,6 @@ const SUGGESTED_PROMPTS = [
     prompt: "What's a good wine for a wedding gift?"
   },
 ];
-
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -107,7 +107,7 @@ const Search = () => {
     >
       {message.type === 'bot' && (
         <View style={styles.avatarContainer}>
-          <Icon name="glass-wine" size={24} color="#D52247" />
+          <Text style={styles.avatarEmoji}>🍷</Text>
         </View>
       )}
       <View style={[
@@ -135,12 +135,15 @@ const Search = () => {
           <TouchableOpacity
             style={styles.resetButton}
             onPress={resetConversation}
+            onPressIn={() => Alert.alert('Reset Chat', 'Start a new conversation?', [
+              { text: 'Cancel', style: 'cancel' },
+              { text: 'Reset', onPress: resetConversation }
+            ])}
           >
-            <Icon name="refresh" size={24} color="#D52247" />
+            <Text style={styles.buttonEmoji}>🔄</Text>
           </TouchableOpacity>
         </View>
       </LinearGradient>
-
 
       <ScrollView
         style={styles.messagesContainer}
@@ -196,11 +199,7 @@ const Search = () => {
           onPress={() => handleSearch()}
           disabled={loading || !query.trim()}
         >
-          <Icon
-            name="send"
-            size={24}
-            color={query.trim() ? "#FFFFFF" : "#666"}
-          />
+          <Text style={styles.buttonEmoji}>{loading ? '⏳' : '📨'}</Text>
         </TouchableOpacity>
       </Animatable.View>
     </SafeAreaView>
@@ -263,6 +262,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
+  },
+  avatarEmoji: {
+    fontSize: 24,
+  },
+  buttonEmoji: {
+    fontSize: 22,
   },
   messageContent: {
     maxWidth: '80%',
